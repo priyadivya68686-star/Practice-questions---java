@@ -1,0 +1,311 @@
+1. X VALUE OF ARRAY I:
+
+ import java.util.*;
+
+class Main {
+    static long[] resultArray(int[] nums, int k) {
+        long[] ans = new long[k];
+        long[] dp = new long[k];
+
+        for (int num : nums) {
+            int r = num % k;
+            long[] next = new long[k];
+
+            next[r] = 1;
+
+            for (int i = 0; i < k; i++) {
+                int nr = (int)((long)i * r % k);
+                next[nr] += dp[i];
+            }
+
+            for (int i = 0; i < k; i++) {
+                ans[i] += next[i];
+            }
+
+            dp = next;
+        }
+
+        return ans;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {1, 2, 3, 4, 5};
+        int k = 3;
+
+        long[] ans = resultArray(nums, k);
+
+        System.out.println(Arrays.toString(ans));
+    }
+}
+
+
+2. unique 3 digit even number 
+
+import java.util.*;
+
+class Main {
+    public static void main(String[] args) {
+
+        int radius = 1;
+        int xCenter = 0;
+        int yCenter = 0;
+        int x1 = 1;
+        int y1 = -1;
+        int x2 = 3;
+        int y2 = 1;
+
+        int x = Math.max(x1, Math.min(xCenter, x2));
+        int y = Math.max(y1, Math.min(yCenter, y2));
+
+        int dx = x - xCenter;
+        int dy = y - yCenter;
+
+        boolean result = dx * dx + dy * dy <= radius * radius;
+
+        System.out.println(result);
+    }
+}class Solution {
+    public int totalNumbers(int[] digits) {
+        int count = 0;
+
+        for (int a = 1; a <= 9; a++) {
+            for (int b = 0; b <= 9; b++) {
+                for (int c = 0; c <= 8; c += 2) {
+
+                    if (a == b || a == c || b == c)
+                        continue;
+
+                    boolean x = false, y = false, z = false;
+
+                    for (int d : digits) {
+                        if (d == a && !x) x = true;
+                        else if (d == b && !y) y = true;
+                        else if (d == c && !z) z = true;
+                    }
+
+                    if (x && y && z)
+                        count++;
+                }
+            }
+        }
+
+        return count;
+    }
+}
+
+
+3. 
+
+Find Two Non-overlapping Sub-arrays Each With Target Sum.
+
+
+
+import java.util.*;
+
+class Main {
+    public static void main(String[] args) {
+
+        int[] arr = {3, 2, 2, 4, 3};
+        int target = 3;
+
+        int n = arr.length;
+        int[] best = new int[n];
+
+        int sum = 0;
+        int left = 0;
+        int ans = Integer.MAX_VALUE;
+        int minLen = Integer.MAX_VALUE;
+
+        for (int right = 0; right < n; right++) {
+            sum += arr[right];
+
+            while (sum > target) {
+                sum -= arr[left];
+                left++;
+            }
+
+            if (sum == target) {
+                int len = right - left + 1;
+
+                if (left > 0 && best[left - 1] != 0) {
+                    ans = Math.min(ans, len + best[left - 1]);
+                }
+
+                minLen = Math.min(minLen, len);
+            }
+
+            best[right] = minLen == Integer.MAX_VALUE ? 0 : minLen;
+        }
+
+        System.out.println(ans == Integer.MAX_VALUE ? -1 : ans);
+    }
+}
+
+4. Distinct Subsequences II
+
+class Main {
+    public static int distinctSubseqII(String s) {
+        long[] dp = new long[26];
+        long total = 0;
+        long mod = 1000000007;
+
+        for (char c : s.toCharArray()) {
+            int i = c - 'a';
+
+            long add = (total + 1) % mod;
+
+            total = (total + add - dp[i] + mod) % mod;
+
+            dp[i] = add;
+        }
+
+        return (int) total;
+    }
+
+    public static void main(String[] args) {
+        String s = "abc";
+
+        System.out.println(distinctSubseqII(s));
+    }
+}
+
+5. 
+ Maximize the Distance Between Points on a Square:
+
+
+import java.util.*;
+
+class Main {
+
+    public static int maxDistance(int side, int[][] points, int k) {
+        
+        long[] a = new long[points.length];
+
+        for (int i = 0; i < points.length; i++) {
+            int x = points[i][0];
+            int y = points[i][1];
+
+            if (x == 0)
+                a[i] = y;
+            else if (y == side)
+                a[i] = side + x;
+            else if (x == side)
+                a[i] = 3L * side - y;
+            else
+                a[i] = 4L * side - x;
+        }
+
+        Arrays.sort(a);
+
+        long left = 0, right = side;
+
+        while (left < right) {
+            long mid = (left + right + 1) / 2;
+
+            if (check(a, side, k, mid))
+                left = mid;
+            else
+                right = mid - 1;
+        }
+
+        return (int) left;
+    }
+
+    static boolean check(long[] a, int side, int k, long d) {
+
+        long perimeter = 4L * side;
+        int n = a.length;
+
+        for (int s = 0; s < n; s++) {
+
+            long start = a[s];
+            long last = start;
+            int count = 1;
+
+            for (int j = 1; j < n && count < k; j++) {
+
+                int index = (s + j) % n;
+                long cur = a[index];
+
+                if (index <= s)
+                    cur += perimeter;
+
+                if (cur - last >= d) {
+                    last = cur;
+                    count++;
+                }
+            }
+
+            if (count == k && perimeter - (last - start) >= d)
+                return true;
+        }
+
+        return false;
+    }
+
+    public static void main(String[] args) {
+
+        int side = 2;
+
+        int[][] points = {
+            {0, 2},
+            {2, 0},
+            {2, 2},
+            {0, 0}
+        };
+
+        int k = 4;
+
+        System.out.println(maxDistance(side, points, k));
+    }
+}
+
+6. CODE NODE EQUALS TO AVERAGE OF SUBTREE:
+
+
+class Main {
+
+    static class TreeNode {
+        int val;
+        TreeNode left, right;
+
+        TreeNode(int val) {
+            this.val = val;
+        }
+    }
+
+    static int count = 0;
+
+    static int[] dfs(TreeNode root) {
+        if (root == null)
+            return new int[]{0, 0};
+
+        int[] left = dfs(root.left);
+        int[] right = dfs(root.right);
+
+        int sum = left[0] + right[0] + root.val;
+        int nodes = left[1] + right[1] + 1;
+
+        if (sum / nodes == root.val)
+            count++;
+
+        return new int[]{sum, nodes};
+    }
+
+    public static void main(String[] args) {
+
+        TreeNode root = new TreeNode(4);
+
+        root.left = new TreeNode(8);
+        root.right = new TreeNode(5);
+
+        root.left.left = new TreeNode(0);
+        root.left.right = new TreeNode(1);
+
+        root.right.right = new TreeNode(6);
+
+        dfs(root);
+
+        System.out.println(count);
+    }
+}
