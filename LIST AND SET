@@ -1,0 +1,180 @@
+                                                                          LIST:
+
+
+ARRAYLIST:
+
+import java.util.ArrayList;
+public class Main{
+    public static void main(String[] args){
+        ArrayList<String> cars = new ArrayList<String>();
+        cars.add("volvo");
+        cars.add("benz");
+        cars.add("maruthi");
+        cars.add("porche");
+       
+        cars.add(4,"BMW");
+         System.out.println("After adding BMW:"+cars);
+        
+        cars.remove(4);
+         System.out.println("After removing usng index :"+cars);
+        
+        cars.remove("volvo");
+         System.out.println("After removing using name :"+cars);
+        
+        cars.set(0,"audi");
+         System.out.println("After updating :"+cars);
+        
+        System.out.println("Getting a specific car name:"+cars.get(0));
+        
+         System.out.println("Finally:"+cars);
+        
+         System.out.println(cars.size());
+        cars.clear();
+        System.out.println("clearing :"+cars);
+    } 
+}
+
+O/P:
+Getting a specific car name:volvo
+Finally:[volvo, benz, maruthi, porche, BMW]
+Size:5
+Clearing:[]
+
+
+
+LINKEDLIST:
+
+import java.util.LinkedList;
+
+public class Main {
+    public static void main(String[] args) {
+
+        LinkedList<String> cars = new LinkedList<String>();
+
+        cars.add("volvo");
+        cars.add("benz");
+        cars.add("maruthi");
+        cars.add("porche");
+
+        cars.add(4, "BMW");
+        System.out.println("After adding BMW:" + cars);
+
+        cars.remove(4);
+        System.out.println("After removing using index:" + cars);
+
+        cars.remove("volvo");
+        System.out.println("After removing using name:" + cars);
+
+        cars.set(0, "audi");
+        System.out.println("After updating:" + cars);
+
+        System.out.println("Getting a specific car name:" + cars.get(0));
+
+        System.out.println("Finally:" + cars);
+
+        System.out.println("Size:" + cars.size());
+
+        cars.clear();
+        System.out.println("Clearing:" + cars);
+    }
+}
+
+O/P:
+Getting a specific car name:volvo
+Finally:[volvo, benz, maruthi, porche, BMW]
+Size:5
+Clearing:[]
+
+
+                                                           SET :
+
+HASHSET:
+
+import java.util.*;
+public class Main{
+    public static void main(String[] args){
+        var num = new HashSet<String>();
+        num.add("volvo");
+        num.add("benz");
+         num.add("alto");
+         num.add("maruthi"); 
+num.add("kia");
+num.add("maruthi");
+        
+            for (String i : num){
+                System.out.println(i);
+            }
+    } 
+}
+
+O/P:
+
+O/P:
+volvo
+benz
+alto
+maruthi
+kia
+
+
+
+TREESET:
+
+import java.util.*;
+public class Main{
+    public static void main(String[] args){
+        var num = new TreeSet<String>();
+        num.add("volvo");
+        num.add("benz");
+         num.add("alto");
+         num.add("maruthi"); 
+num.add("kia");
+num.add("maruthi");
+        
+            for (String i : num){
+                System.out.println(i);
+            }
+    } 
+}
+
+O/P:
+
+alto
+benz
+kia
+maruthi
+volvo
+
+
+LINKEDHASHSET:
+
+import java.util.*;
+public class Main{
+    public static void main(String[] args){
+        var num = new LinkedHashSet<String>();
+        num.add("volvo");
+        num.add("benz");
+         num.add("alto");
+         num.add("maruthi");
+        num.remove("alto");
+        System.out.println(num.contains("benz"));
+        System.out.println(num);
+    }
+}
+
+O/P:
+
+true
+[volvo, benz, maruthi]
+
+
+
+
+
+
+
+
+
+
+
+
